@@ -56,28 +56,6 @@ class RegisterController extends Controller
     }
 
     /**
-     * Handle a registration request for the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function register(Request $request)
-    {
-        $this->validator($request->all())->validate();
-        event(new Registered($user = $this->create($request->all())));
-
-        $this->guard()->login($user);
-
-        if ($response = $this->registered($request, $user)) {
-            return $response;
-        }
-
-        return $request->wantsJson()
-                    ? new Response('', 201)
-                    : redirect($this->redirectPath());
-    }
-
-    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -88,8 +66,8 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'first_name' => ['required', 'string'],
             'last_name' => ['required', 'string'],
-            'phone_number' => ['required', 'integer'],
-            'email' => ['required', 'string', 'max:255'],
+            'phone_number' => ['required', 'integer','unique:users'],
+            'email' => ['required', 'string', 'max:255','unique:users'],
             'password' => ['required', 'string', 'min:8'],
             'next_of_kin_first_name' => ['required', 'string'],
             'next_of_kin_last_name' => ['required', 'string'],
