@@ -1,54 +1,170 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration</title>
-    <link rel="stylesheet" href="/css/registration.css">
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+@extends('layouts.app')
 
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-</head>
-<body>
-    <div class="signup-form">
-        <form action="{{ route('register') }}" method="POST">
-        @csrf
-            <h1>Register</h1>
-            <input type="text" placeholder="First Name" name="first_name" class="txtb"><br>
-            <input type="text" placeholder="Last Name" name="last_name" class="txtb"><br>
-            <input type="tel" placeholder="Phone Number" name="phone_number" class="txtb"><br>
-            <input type="text" placeholder="Email" name="email" class="txtb"><br>
-            <input type="password" placeholder="Password" name="password" class="txtb"><br>
-            <input type="text" placeholder="Next of Kin First Name" name="next_of_kin_first_name" class="txtb"><br>
-            <input type="text" placeholder="Next of Kin Last Name" name="next_of_kin_last_name" class="txtb"><br>
-            <input type="text" placeholder="Next of Kin Email" name="next_of_kin_email" class="txtb"><br>
-            <input type="text" placeholder="Next of Kin Phone" name="next_of_kin_phone" class="txtb"><br>
-            <label for="roles">Roles</label>
-            <select name="roles">
-                <option value="1">User</option>
-                <option value="2">Doctor</option>
-                <option value="3">Admin</option>
-            </select><br>
-            <input type="number" placeholder="ID Number" name="id_number" class="txtb"><br>
-            <div class="form-group">
-              <label for=license_document style="color:black;">License Document</label>
-              <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
-              <small id="fileHelp" class="form-text text-muted"><p style="color:white;">Kindly upload your Doctor's License</p></small>
+@section('content')
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">{{ __('Register') }}</div>
+
+                    <div class="card-body">
+                        <form method="POST" action="{{ route('register') }}">
+                            @csrf
+
+                            <div class="form-group row">
+                                <label for="first_name" class="col-md-4 col-form-label text-md-right">{{ __('First Name') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ old('first_name') }}" required autocomplete="first_name" autofocus>
+
+                                    @error('first_name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="last_name" class="col-md-4 col-form-label text-md-right">{{ __('Last Name') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="last_name" type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" required autocomplete="last_name" autofocus>
+
+                                    @error('last_name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="phone_number" class="col-md-4 col-form-label text-md-right">{{ __('Phone Number') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="phone_number" type="number" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="{{ old('phone_number') }}" required autocomplete="phone_number" autofocus>
+
+                                    @error('phone_number')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+
+                                    @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" required autocomplete="password">
+
+                                    @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label for="next_of_kin_first_name" class="col-md-4 col-form-label text-md-right">{{ __('Next of Kin First Name') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="next_of_kin_first_name" type="text" class="form-control @error('next_of_kin_first_name') is-invalid @enderror" name="next_of_kin_first_name" value="{{ old('next_of_kin_first_name') }}" required autocomplete="next_of_kin_first_name" autofocus>
+
+                                    @error('next_of_kin_first_name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="next_of_kin_last_name" class="col-md-4 col-form-label text-md-right">{{ __('Next of Kin Last Name') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="next_of_kin_last_name" type="text" class="form-control @error('next_of_kin_last_name') is-invalid @enderror" name="next_of_kin_last_name" value="{{ old('next_of_kin_last_name') }}" required autocomplete="next_of_kin_last_name" autofocus>
+
+                                    @error('next_of_kin_last_name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="next_of_kin_email" class="col-md-4 col-form-label text-md-right">{{ __('Next of Kin Email') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="next_of_kin_email" type="email" class="form-control @error('next_of_kin_email') is-invalid @enderror" name="next_of_kin_email" value="{{ old('next_of_kin_email') }}" required autocomplete="next_of_kin_email" autofocus>
+
+                                    @error('next_of_kin_email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="next_of_kin_phone" class="col-md-4 col-form-label text-md-right">{{ __('Phone Number') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="next_of_kin_phone" type="number" class="form-control @error('next_of_kin_phone') is-invalid @enderror" name="next_of_kin_phone" value="{{ old('next_of_kin_phone') }}" required autocomplete="next_of_kin_phone" autofocus>
+
+                                    @error('next_of_kin_phone')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="role_id" class="col-md-4 col-form-label text-md-right">{{ __('Roles') }}</label>
+
+                                <div class="col-md-6">
+                                    <select class="form-control @error('role_id') is-invalid @enderror" name="role_id" id="role_id">
+                                        @foreach($roles as $role)
+                                            <option value="{{$role->id}}">{{$role->name}}</option>
+                                        @endforeach
+                                    </select>
+
+                                    @error('next_of_kin_phone')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        {{ __('Register') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <input type="text" placeholder="License Number" name="license_no" class="txtb"><br>
-            <input type="number" placeholder="Hospital ID" name="hospital_id" class="txtb"><br>
-            <input type="text" placeholder="Specialization" name="specialization" class="txtb"><br>
-            <a href="#">Already Have one?</a>
-            <input type="submit" value="Register" class="signup-btn">
-        </form>
+        </div>
     </div>
-            
-    <script
-    src="https://code.jquery.com/jquery-3.5.1.js"
-    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-    crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-
-</body>
-</html>
- 
+@endsection
